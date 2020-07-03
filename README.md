@@ -30,7 +30,7 @@ of columns of independent variables. The number of calculations is equal to `n_D
 - Manipulation of independent and dependent variables controlled by the `move_columns` argument. 
 This argument moves the selected columns to the far right of the table, which is where the dependent variables are.
 
-## Examples
+## Examples 
 
 Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
 at the given points:
