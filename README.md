@@ -35,7 +35,10 @@ This argument moves the selected columns to the far right of the table, which is
 Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
 at the given points:
 
-| points            | interpolated output       |
-| ----------------- |:-------------------------:|
-| `(0, 10, 0.5)`    | `[0.582412, 0.2818265]`   |
-| `(0, 15, 0.5)`    | `[0.3372805, 0.363981]`   |
+| input                                                 | points            | interpolated output       |
+| ----------------------------------------------------- | ----------------- |:-------------------------:|
+| `interpolate_table(out, 0, 10, 0.5)`                  | `(0, 10, 0.5)`    | `[0.582412, 0.2818265]`   |
+| `interpolate_table(out, 0, 10, 0.5, move_columns=3)`  | `(0, 10, 0.5)`    | `[0.2818265, 0.582412]`   |
+| `interpolate_table(out, 0, 15, 0.5)`                  | `(0, 15, 0.5)`    | `[0.3372805, 0.363981]`   |
+
+Note that out is the table from [file.csv](file.csv): `out = np.loadtxt('file.csv')`

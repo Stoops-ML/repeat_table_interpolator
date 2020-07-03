@@ -5,11 +5,14 @@ from itertools import product
 
 def interpolate_table(polar, *coords, move_columns=None):
     def push_right(table, *indices):
+        """move each column in indices to the far right of the table.
+        This makes the column a dependent variable"""
         a = table[:, list(*indices)]
         b = np.delete(table, indices, axis=1)
         return np.concatenate((b, a), axis=1)
 
     def lin_interp(y, y0, y1, x0, x1):
+        """linear interpolation"""
         return (y - y0) / (y1 - y0) * (x1 - x0) + x0
 
     # convert to numpy arrays
