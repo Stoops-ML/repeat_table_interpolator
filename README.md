@@ -9,7 +9,8 @@ to be interpolated).
 ![alt text](example_table.png "Sample table")
 
 ## Project goal
-The aim of this project is to create a script that can interpolate tables with repeated values. 
+The aim of this project is to create a script that can interpolate tables with repeated values. I believe this script 
+will be a useful addition to the SciPy interpolation module, and I am working on its approval to the module.
 
 Such tables are very common in aerospace engineering. For example, a drag polar typically details the drag coefficient 
 at every Mach, height and lift coefficient. In this example the drag coefficient is the dependent variable (to be interpolated)
