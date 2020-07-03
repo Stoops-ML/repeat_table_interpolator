@@ -1,21 +1,41 @@
 # Repeated value table interpolation
 
-This script allows table interpolation that contain repeated values.
-An example of a table with repeated values is show below (taken from [example_table.png](example_table.png)), where the 
-first three columns are independent variables that repeat and the last two columns are dependent variables to be 
-interpolated.
+This script performs linear interpolation of tables with repeated values.
+
+An example of a snippet of a table with repeated values is shown below (taken from [file.csv](file.csv)).
+The first three columns are independent variables that repeat and the last two columns are dependent variables (that are 
+to be interpolated).
 
 ![alt text](example_table.png "Sample table")
 
-##Project goal
-The aim of this project is to create an interpolation script that can interpolate tables with repeated values. Such tables
-are very common in aerospace engineering where drag is detailed at repeated values of speed, height, lift values etc.
-Interpolating such tables is time consuming by hand as the number of calculations increases exponentially with the number 
-of columns: `sum([2**i for i in range(1, n_columns+1)])`.
+## Project goal
+The aim of this project is to create a script that can interpolate tables with repeated values. 
+
+Such tables are very common in aerospace engineering. For example, a drag polar typically details the drag coefficient 
+at every Mach, height and lift coefficient. In this example the drag coefficient is the dependent variable (to be interpolated)
+and the Mach, height and lift coefficient are the independent variables.
+
+Interpolating tables with repeated values by hand is time consuming as the number of calculations increases exponentially with the number 
+of columns of independent variables. The number of calculations is equal to `n_DV * sum([2**i for i in range(1, n_IV+1)])`,
+ where `n_IV` is the number of independent variables and `n_DV` is the number of dependent variables. 
+ 
+ In the [table above](example_table.png) there are three columns of independent variables and two dependent variables. 
+ Therefore, the number of calculations required to find the interpolated values of both dependent variables = 
+ `2 * sum([2**i for i in range(1, 3+1)]) = 28`. 
 
 
-##Capabilities
+## Capabilities
 - script can handle any table with repeated values
 - interpolate along any number of independent and dependent variables
-- moving of columns to the far right of the table. This is necessary if the user wants to move a column to the position 
-of the dependent variables (i.e. the far right). Controlled by the `move_columns` argument.
+- Manipulation of independent and dependent variables controlled by the `move_columns` argument. 
+This argument moves the selected columns to the far right of the table, which is where the dependent variables are.
+
+## Examples
+
+Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
+at the given points:
+
+| points            | interpolated output       |
+| ----------------- |:-------------------------:|
+| `(0, 10, 0.5)`    | `[0.582412, 0.2818265]`   |
+| `(0, 15, 0.5)`    | `[0.3372805, 0.363981]`   |
