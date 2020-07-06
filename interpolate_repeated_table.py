@@ -30,14 +30,12 @@ def interpolate_table(polar, *coords, move_columns=None):
     IV, DVs = polar[:, :num_IVs], polar[:, -num_DVs:]
 
     # find upper & lower bounds of each IV column
-    bounds = [[0]] * num_IVs
+    bounds = [[0, 0]] * num_IVs
     for i, coord in enumerate(coords):
-        k = 2
-        while len(bounds[i]) == 1:  # loop until two unique nearest neighbours found
-            tree = cKDTree(IV[:, i].reshape(-1, 1))
-            _, ind = tree.query([coord], k=k)
-            bounds[i] = list(set(IV[ind, i]))
-            k += 1  # increase number of nearest neighbours
+        IV_col = np.array(list(set(IV[:, i])))
+        tree = cKDTree(IV_col.reshape(-1, 1))
+        _, ind = tree.query([coord], k=2)
+        bounds[i] = IV_col[ind]
 
     output = []
     for i in range(num_DVs):
