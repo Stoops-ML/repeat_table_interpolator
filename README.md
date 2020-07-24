@@ -33,7 +33,7 @@ This argument moves the selected columns to the far right of the table, which is
 Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
 at the given points:
 
-| input                                                 | points            | interpolated output       |
+| input                                                 | coordinates       | interpolated output       |
 | ----------------------------------------------------- | ----------------- |:-------------------------:|
 | `interpolate_table(out, 0, 10, 0.5)`                  | `(0, 10, 0.5)`    | `[0.582412, 0.2818265]`   |
 | `interpolate_table(out, 0, 10, 0.5, move_columns=3)`  | `(0, 10, 0.5)`    | `[0.2818265, 0.582412]`   |
