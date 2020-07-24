@@ -1,19 +1,16 @@
 import numpy as np
 from scipy.spatial import cKDTree
 from itertools import product
+from scipy import interpolate
 
 
 def interpolate_table(polar, *coords, move_columns=None):
     def push_right(table, *indices):
-        """move each column in indices to the far right of the table.
+        """move each column in 'indices' to the far right of the table.
         This makes the column a dependent variable"""
         a = table[:, list(*indices)]
         b = np.delete(table, indices, axis=1)
         return np.concatenate((b, a), axis=1)
-
-    def lin_interp(y, y0, y1, x0, x1):
-        """linear interpolation"""
-        return (y - y0) / (y1 - y0) * (x1 - x0) + x0
 
     # convert to numpy arrays
     polar = np.array(polar)
@@ -37,26 +34,26 @@ def interpolate_table(polar, *coords, move_columns=None):
         _, ind = tree.query([coord], k=2)
         bounds[i] = IV_col[ind]
 
-    output = []
+    output = np.empty(0)
     for i in range(num_DVs):
         DV = DVs[:, i]  # select column of DVs
 
         # get DV of all combinations of coords
-        new_DV = []
+        new_DV = np.empty(0)
         tree = cKDTree(IV)
         for bound in product(*bounds):
             _, ind = tree.query(bound, k=1)
-            new_DV.append(float(DV[ind]))
+            new_DV = np.append(new_DV, DV[ind])
 
         for j in reversed(range(num_IVs)):
-            new_IV = []
+            new_IV = np.empty(0)
             for k in range(len(new_DV) // 2):
-                interp_value = lin_interp(coords[j],
-                                          bounds[j][0], bounds[j][1],
-                                          new_DV[k * 2], new_DV[k * 2 + 1])
-                new_IV.append(interp_value)
+                lin_interp = interpolate.interp1d([bounds[j][0], bounds[j][1]],
+                                                  [new_DV[k * 2], new_DV[k * 2 + 1]],
+                                                  fill_value="extrapolate")
+                new_IV = np.append(new_IV, lin_interp(coords[j]))
             new_DV = new_IV
-        output.append(*new_DV)
+        output = np.append(output, new_DV)
 
     return output
 
