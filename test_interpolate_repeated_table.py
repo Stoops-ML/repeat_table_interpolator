@@ -8,7 +8,8 @@ class TestInterpolator(unittest.TestCase):
     @classmethod
     def setUp(cls):
         try:
-            cls.test_file = np.loadtxt('file.csv')
+            cls.num_decimals = 6
+            cls.test_file = np.loadtxt('file.csv').round(decimals=cls.num_decimals)
         except OSError as ex:
             print('Test file not found')
             raise OSError(ex)
@@ -21,10 +22,12 @@ class TestInterpolator(unittest.TestCase):
         """test whether function returns exact values from the file"""
         for line in self.test_file:
             output = IRT.interpolate_table(self.test_file, *line[:3])
-            self.assertEqual(list(line[3:]), output)
+            nums_compare = np.array(line[3:]) == output.round(decimals=self.num_decimals)
+            self.assertTrue(np.all(nums_compare))
 
     def test_move_columns(self):
         """test whether function returns swapped exact values from the file"""
         for line in self.test_file:
             output = IRT.interpolate_table(self.test_file, *line[:3], move_columns=3)
-            self.assertEqual(list(line[:2:-1]), output)
+            nums_compare = np.array(line[:2:-1]) == output.round(decimals=self.num_decimals)
+            self.assertTrue(np.all(nums_compare))
