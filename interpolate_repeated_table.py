@@ -36,9 +36,8 @@ def interpolate_table(table, coordinates, DV_columns=None):
     # length of variables
     num_IVs = len(coordinates)
     num_DVs = np.shape(table)[1] - num_IVs if not DV_columns else len(DV_columns)
-    assert np.shape(table)[
-               1] >= num_IVs + num_DVs, 'The number of independent and dependent variables must be smaller than or ' \
-                                        'equal to the number of columns in the table'
+    assert np.shape(table)[1] >= num_IVs + num_DVs, 'The number of independent and dependent variables must be smaller'\
+                                                    ' than or equal to the number of columns in the table'
 
     # if user hasn't chosen columns of dependent variables
     if not DV_columns:
