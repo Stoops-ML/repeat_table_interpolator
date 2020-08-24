@@ -19,14 +19,14 @@ class TestInterpolator(unittest.TestCase):
         pass
 
     def test_interpolate_exact_values(self):
-        """test whether function returns exact values from the file"""
+        """test function to return exact dependent variables values from the file"""
         for line in self.test_file:
             output = IRT.interpolate_table(self.test_file, line[:3])
             nums_compare = np.array(line[3:]) == output.round(decimals=self.num_decimals)
             self.assertTrue(np.all(nums_compare))
 
     def test_move_columns(self):
-        """test whether function returns swapped exact values from the file"""
+        """test function to return swapped values from the file"""
         for line in self.test_file:
             output = IRT.interpolate_table(self.test_file, line[:3], DV_columns=[4, 3])
             nums_compare = np.array(line[:2:-1]) == output.round(decimals=self.num_decimals)
