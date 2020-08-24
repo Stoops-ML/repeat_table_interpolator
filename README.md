@@ -30,6 +30,8 @@ of columns of independent variables. The number of calculations is equal to `n_D
 
 ## Examples 
 
+The following is a summary from the [example Jupyter notebook](Example.ipynb).
+
 Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
 at the given points:
 
