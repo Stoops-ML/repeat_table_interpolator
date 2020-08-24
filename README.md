@@ -25,18 +25,18 @@ of columns of independent variables. The number of calculations is equal to `n_D
 ## Capabilities
 - script can handle any table with repeated values
 - interpolate along any number of independent and dependent variables
-- Manipulation of independent and dependent variables controlled by the `move_columns` argument. 
-This argument moves the selected columns to the far right of the table, which is where the dependent variables are.
+- Manipulation of independent and dependent variables controlled by the `DV_columns` argument. This argument selects the
+ columns of the dependent variables.
 
 ## Examples 
 
 Using the [table above](example_table.png) find the interpolated values of the dependent variables (the last two columns)
 at the given points:
 
-| input                                                 | coordinates       | interpolated output       |
-| ----------------------------------------------------- | ----------------- |:-------------------------:|
-| `interpolate_table(out, 0, 10, 0.5)`                  | `(0, 10, 0.5)`    | `[0.582412, 0.2818265]`   |
-| `interpolate_table(out, 0, 10, 0.5, move_columns=3)`  | `(0, 10, 0.5)`    | `[0.2818265, 0.582412]`   |
-| `interpolate_table(out, 0, 15, 0.5)`                  | `(0, 15, 0.5)`    | `[0.3372805, 0.363981]`   |
+| input                                                                     | independent variables         | interpolated output       |
+| ---------------------------------------------------------------------     | ----------------------------- |:-------------------------:|
+| `interpolate_table(out, coordinates=[0, 10, 0.5])`                        | `(0, 10, 0.5)`                | `[0.582412, 0.2818265]`   |
+| `interpolate_table(out, coordinates=[0, 10, 0.5], DV_columns=[4, 3])`     | `(0, 10, 0.5)`                | `[0.2818265, 0.582412]`   |
+| `interpolate_table(out, coordinates=[0, 15, 0.5])`                        | `(0, 15, 0.5)`                | `[0.3372805, 0.363981]`   |
 
 Note that `out` is the table from [file.csv](file.csv): `out = np.loadtxt('file.csv')`
